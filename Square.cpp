@@ -4,7 +4,6 @@
 
 #include "Square.h"
 
-Square::Square() :  dl(){}
 
 
 

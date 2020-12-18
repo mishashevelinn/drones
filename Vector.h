@@ -12,16 +12,25 @@ using namespace std;
 class Vector {
 public:
     Vector(double x, double y);
+
     Vector();
-    Vector(const Vector & other);
 
+    Vector(const Vector &other);
 
+    Vector &operator=(const Vector &rhs) {
+        x = rhs.x;
+        y = rhs.y;
+        return *this;
+    }
 
-    bool operator==(const Vector & rhs) const
-    {
+    bool operator==(const Vector &rhs) const {
         return x == rhs.x && y == rhs.y;
     }
-    Vector floored(Vector & floored) const;
+
+    bool operator!=(const Vector &rhs) const{
+        return !this->operator==(rhs);
+    }
+    Vector floored() const;
     Vector operator*(float scalar) const
     {
         return  Vector(scalar*x, scalar*y);
@@ -45,8 +54,8 @@ public:
     double get_y()const;
     void set_x(double x);
     void set_y(double y);
+    double norm() const;
 
-private:
     double x;
     double y;
 

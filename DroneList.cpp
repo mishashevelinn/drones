@@ -8,7 +8,6 @@ DroneList::DroneList() {
     {
         head = new Node();
         tail = new Node();
-        head->data.set_id(0);
         head->next = tail;
         head->prev = NULL;
         tail->next = NULL;
@@ -24,7 +23,7 @@ void DroneList::insert(Drone new_data) {
         new_node->prev = head;
         head->next = new_node;
         head->next->prev = new_node;
-        head->get_data().set_id(head->get_data().get_id() + 1);
+
     }
 
 }
@@ -42,5 +41,6 @@ DroneList::~DroneList() {
 
 
     }
+
 
 }

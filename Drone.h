@@ -6,29 +6,33 @@
 #define DRONES_DRONE_H
 #include "Vector.h"
 #include <ostream>
+
 using namespace std;
 class Drone {
 public:
-    Drone(int id, const Vector & place, const Vector & speed);
-    Drone():id(-99), place(-99, -99), speed(-99, -99){}
+    Drone(const Vector & place, const Vector & speed, const Vector & dest);
+    Drone():place(-99, -99), speed(-99, -99){}
     friend  ostream & operator <<(ostream & os, const Drone & d)
     {
-        os<<"(" << d.place.get_x() << ", " << d.place.get_y() << "); ("<< d.speed.get_x() << ", " << d.speed.get_y() << ");  " << d.id << endl;
+        os << "drone N: " << d.id<< " ";
+        os<<"(" << d.place.get_x() << ", " << d.place.get_y() << "); ("<< d.speed.get_x() << ", " << d.speed.get_y() << ");  " << endl;
         return os;
     }
-    void move(Vector & globalBest);
     int get_id() const;
-    void set_id(int id);
+    bool move(Vector & globalBest, int** squares, bool & found);
+    const Vector &get_place();
+    int id;
 
 private:
-    int id;
+
     Vector place;
     Vector speed;
     Vector personalBest;
-
+    Vector dest;
+    double aim_dist;
+    Vector square_idx;
 
 
 };
-
 
 #endif //DRONES_DRONE_H

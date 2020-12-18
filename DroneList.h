@@ -23,10 +23,6 @@ public:
 
     virtual ~DroneList();
 
-    void operator++()
-    {
-        head->get_data().set_id(head->get_data().get_id() + 1);
-    }
 
     friend ostream & operator<<(ostream & os, const DroneList & rhs)
     {
@@ -37,6 +33,8 @@ public:
         }
         return os;
     }
+
+    const Drone & get_head() const { return head->get_data();}
 
     Node * head;
     Node * tail;
