@@ -38,6 +38,7 @@ int main() {
         if(num_iter == 3)
         {
             break;
+
         }
     }
     cout << "game over" <<  endl;
