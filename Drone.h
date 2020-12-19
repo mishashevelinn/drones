@@ -5,6 +5,7 @@
 #ifndef DRONES_DRONE_H
 #define DRONES_DRONE_H
 #include "Vector.h"
+#include "Square.h"
 #include <ostream>
 
 using namespace std;
@@ -19,7 +20,7 @@ public:
         return os;
     }
     int get_id() const;
-    bool move(Vector & globalBest, int** squares, bool & found);
+    bool move(Vector & globalBest, Square (&squares)[42][72], bool & found);
     const Vector &get_place();
     int id;
 
