@@ -1,7 +1,7 @@
 //
 // Created by misha on 16/12/2020.
 //
-#define INVINP "INVALID INPUT"
+#define INVINP "ERROR; invalid input"
 #ifndef DRONES_PARSER_H
 #define DRONES_PARSER_H
 
@@ -29,7 +29,6 @@ public:
         fs.open(file);
         string line;
         if (!fs) {
-            cerr << "FILE NOT FOUND" << endl;
             return 0;
         }
         string buff;

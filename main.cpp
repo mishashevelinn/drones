@@ -2,10 +2,16 @@
 
 #include "Parser.h"
 #include "Wood.h"
-int main() {
-    Wood w(10,Vector(4,4));
+int main(int argv, char* args[]) {
+    if(argv != 4) {
+        cerr << INVINP << endl;
+        return 0;
+    }
+
+    srand(time(NULL));
+    Wood w(10000,Vector(10.5, 2.5));
     DroneList dl;
-    Parser p("init", "drones_init");
+    Parser p(args[1], args[2]);
     p.parse_drones(dl);
 
     w.drones = dl;
@@ -15,6 +21,8 @@ int main() {
     Node * n;
 
 
+    ofstream ofs;
+    ofs.open(args[3]);
 
     int num_iter = 0;
     bool found = false;
@@ -24,28 +32,31 @@ int main() {
             n = n->get_next();
             if(n->get_data().move(w.globalBest, w.field, found))
                 goto fin;
-            if((n->get_data().get_place() - w.aim).norm() < w.globalBest.norm())
-                w.globalBest = n->get_data().get_place();
 
+            float curr_aim_dist;
+            curr_aim_dist = (n->get_data().get_place() - w.aim).norm();
+            float best_dist = (w.globalBest - w.aim).norm();
+            if((curr_aim_dist < best_dist))
+                w.globalBest = n->get_data().get_place();
+            if(n->get_data().get_place().floored() == w.aim) {
+                //cout << "FIN" << endl;
+                ofs << num_iter << endl;
+                ofs << w.drones;
+                return 0;
+            }
+            }
+        if(num_iter == w.iter_max) {
+            ofs << num_iter << endl;
+            ofs << w.drones;
+            return 0;
         }
-        if(num_iter == 120)
-            break;
+
         num_iter++;
-        cout << num_iter << endl;
     }
     fin:
-    cout << num_iter;
-    cout << "game over" <<  endl;
-    cout << w.drones;
-    cout << w.aim;
-    for (int i = 0; i < 42; ++i) {
-        for (int j =0; j < 72; i++) {
-            cout << w.field[i][j];
+    return 0;
 
-        }
-        cout << endl;
 
-    }
 
 //float f = (float)rand()/RAND_MAX;
 //cout << f;

@@ -5,10 +5,10 @@
 #ifndef DRONES_DRONELIST_H
 #define DRONES_DRONELIST_H
 
-#include <cstdio>
+
 #include "Drone.h"
 #include "Node.h"
-#include <ostream>
+
 using namespace std;
 
 class DroneList {
@@ -29,7 +29,7 @@ public:
         Node * temp = rhs.head;
         while ((temp = temp->get_next()) !=rhs.tail)
         {
-            os << temp->get_data();
+            os << temp->get_data() << endl;
         }
         return os;
     }

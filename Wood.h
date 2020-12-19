@@ -14,10 +14,15 @@ public:
     Wood(int iter, const Vector &aim);
     void init();
 
+
+
+
     friend ostream &operator<<(ostream &os,const  Wood &w) {
 
             for (int i = 0; i < 42; ++i) {
                 for (int j = 0; j < 72; ++j) {
+                    if(w.field[i][j].counter == 0)
+                        continue;
                     os << "(" << i << " ," << j << "):" << endl;
                     Node * temp = w.drones.head;
                     while((temp=temp->get_next()) != NULL)
@@ -30,6 +35,7 @@ public:
                     os<< "total drones in sqare : " << w.field[i][j].counter << endl;
                 }
             }
+        return os;
     }
     DroneList drones;
     int iter_max;
@@ -37,6 +43,9 @@ public:
 
     Vector aim;
     Square field[42][72];
+
+
+
 };
 
 

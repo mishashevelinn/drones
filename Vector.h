@@ -40,14 +40,14 @@ public:
         return Vector(x+rhs.x, y + rhs.y);
 
     }
-    Vector operator-(Vector & rhs) const
+    Vector operator-(const Vector & rhs) const
     {
         Vector temp = rhs*(-1);
         return *this + temp;
     }
     friend ostream & operator<<(ostream  & os, const Vector & rhs)
     {
-        os << "(" << rhs.x <<", " << rhs.y << ")";
+        os << rhs.x <<" " << rhs.y;
         return os;
     }
     double get_x() const;

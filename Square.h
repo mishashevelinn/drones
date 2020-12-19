@@ -18,6 +18,7 @@ public:
     }
 
     Square() : id(0, 0), counter(0){}
+
     const  Square  operator++(int){
         counter++;
         return *this;
