@@ -56,6 +56,7 @@ public:
     void set_y(double y);
     double norm() const;
 
+private:
     double x;
     double y;
 

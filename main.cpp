@@ -2,35 +2,75 @@
 
 #include "Parser.h"
 #include "Wood.h"
-int main(int argv, char* args[]) {
-    if(argv != 4) {
-        cerr << INVINP << endl;
+int main(int argc, char* args[]) {
+
+    if(argc != 4) {
+        cerr << INV_INPUT << endl;
         return 0;
     }
 
     srand(time(NULL));
-    Wood w(10000,Vector(10.5, 2.5));
+
     DroneList dl;
     Parser p(args[1], args[2]);
-    p.parse_drones(dl);
+
+//    fstream fs;
+//    fs.open(args[1]);
+//    string line;
+//    if (!fs) {
+//        return 0;
+//    }
+//    string buff;
+//    int counter = 0;
+//    while (getline(fs, buff)) {
+//        counter++;
+//    }
+//    if (counter != 2) {
+//        cerr << INV_INPUT << endl;
+//        return 0;
+//    }
+
+
+
+    int i = 0;
+    if(!p.parse_init(i)) {
+        cerr << INV_INPUT << endl;
+        return 0;
+    }
+    if(!p.parse_drones(dl))
+    {
+        cerr << INV_INPUT << endl;
+        return 0;
+    }
+
+    Wood w(i,p.aim);
+
+
 
     w.drones = dl;
 
     w.init();
-    cout << w.globalBest;
-    Node * n;
-
 
     ofstream ofs;
     ofs.open(args[3]);
 
+    if(i == 0)
+    {
+        ofs << w.iter_max << endl;
+        ofs << w.drones;
+        return 0;
+    }
+    Node * n;
+
+
+
+
     int num_iter = 0;
-    bool found = false;
     while(true) {
         n = w.drones.head;
         while ((n->get_next()) != w.drones.tail) {
             n = n->get_next();
-            if(n->get_data().move(w.globalBest, w.field, found))
+            if(n->get_data().move(w.globalBest, w.field))
                 goto fin;
 
             float curr_aim_dist;

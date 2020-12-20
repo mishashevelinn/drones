@@ -16,8 +16,10 @@ public:
 
     friend  ostream & operator <<(ostream & os, const Drone & d)
     {
-        double x = (int)(d.place.x*100);
-        double y = (int)(d.place.y*100);
+        double x = (d.place.get_x()*100);
+        double y = (d.place.get_y()*100);
+        x /= 1;
+        y /= 1;
 
         os << Vector(x/100, y/100);
         return os;
@@ -27,11 +29,12 @@ public:
 
 
     int get_id() const;
-    bool move(Vector & globalBest, Square (&squares)[42][72], bool & found);
+    bool move(Vector & globalBest, Square (&squares)[42][72]);
     const Vector &get_place();
-    int id;
+
 
 private:
+    int id;
 
     Vector place;
     Vector speed;

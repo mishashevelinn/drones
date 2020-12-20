@@ -21,27 +21,30 @@ public:
 
             for (int i = 0; i < 42; ++i) {
                 for (int j = 0; j < 72; ++j) {
-                    if(w.field[i][j].counter == 0)
+                    if(w.field[i][j].get_counter() == 0)
                         continue;
                     os << "(" << i << " ," << j << "):" << endl;
                     Node * temp = w.drones.head;
                     while((temp=temp->get_next()) != NULL)
                     {
-                        if(temp->get_data().get_place().floored().x == i && temp->get_data().get_place().floored().y == j) {
+                        if(temp->get_data().get_place().floored().get_x() == i && temp->get_data().get_place().floored().get_y() == j) {
                             os << "drone No.:" << temp->get_data().get_id() << ", ";
                         }
                     }
                     os << endl;
-                    os<< "total drones in sqare : " << w.field[i][j].counter << endl;
+                    os<< "total drones in sqare : " << w.field[i][j].get_counter() << endl;
                 }
             }
         return os;
     }
+    DroneList & get_drones() {}
+
+private:
+
     DroneList drones;
     int iter_max;
-    Vector globalBest;
-
     Vector aim;
+    Vector globalBest;
     Square field[42][72];
 
 

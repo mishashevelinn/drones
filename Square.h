@@ -7,17 +7,14 @@
 
 class Square {
 public:
-    Square(int i, int j){
-        id.x = i;
-        id.y = j;
-    }
+
     friend ostream & operator<<(ostream & os, const Square & rhs)
     {
         os <<"Square n " << rhs.id << " contains " << rhs.counter << " drones.";
         return os;
     }
 
-    Square() : id(0, 0), counter(0){}
+    Square();
 
     const  Square  operator++(int){
         counter++;
@@ -29,8 +26,14 @@ public:
         return  *this;
     }
 
-    int counter;
+    int get_counter() const;
+    Vector get_id() const;
+
+private:
     Vector id;
+    int counter;
+
+
 };
 
 

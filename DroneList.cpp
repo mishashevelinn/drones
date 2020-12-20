@@ -21,11 +21,10 @@ void DroneList::insert(Drone new_data) {
         new_node->data = new_data;
         new_node->next = head->next;
         new_node->prev = head;
-        head->next = new_node;
         head->next->prev = new_node;
+        head->next = new_node;
 
     }
-
 }
 
 DroneList::~DroneList() {
@@ -38,9 +37,5 @@ DroneList::~DroneList() {
             temp = temp->get_next();
             delete(del);
         }
-
-
     }
-
-
 }

@@ -7,8 +7,8 @@
 Wood::Wood(int iter, const Vector & aim):drones(), iter_max(iter), aim(aim), globalBest(){
     for (int i = 0; i < 42; ++i) {
         for (int j = 0; j < 72; ++j) {
-            field[i][j].id.set_x(i);
-            field[i][j].id.set_y(j);
+            field[i][j].get_id().set_x(i);
+            field[i][j].get_id().set_y(j);
         }
 
     }
@@ -20,7 +20,7 @@ void Wood::init() {
             Node * temp = drones.head;
             while((temp=temp->get_next()) != NULL)
             {
-                if(temp->get_data().get_place().floored().x == i && temp->get_data().get_place().floored().y == j) {
+                if(temp->get_data().get_place().floored().get_x() == i && temp->get_data().get_place().floored().get_y() == j) {
                     field[i][j]++;
                 }
 

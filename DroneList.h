@@ -26,10 +26,12 @@ public:
 
     friend ostream & operator<<(ostream & os, const DroneList & rhs)
     {
-        Node * temp = rhs.head;
-        while ((temp = temp->get_next()) !=rhs.tail)
+        Node * temp = rhs.tail;
+        while ((temp = temp->get_prev()) != rhs.head)
         {
             os << temp->get_data() << endl;
+
+
         }
         return os;
     }
