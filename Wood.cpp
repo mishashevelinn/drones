@@ -4,6 +4,10 @@
 
 #include "Wood.h"
 
+
+/*Wood keeps 2D array of squares
+ * init -- calculates initial values of squares counters and
+ * defined global best.*/
 Wood::Wood(int iter, const Vector & aim):drones(), iter_max(iter), aim(aim), globalBest(){
     for (int i = 0; i < 42; ++i) {
         for (int j = 0; j < 72; ++j) {
@@ -29,6 +33,14 @@ void Wood::init() {
     }
     globalBest = drones.head->get_next()->get_next()->get_data().get_place();
 
+
+}
+
+Wood::~Wood() {
+
+}
+
+Wood::Wood(const Wood &other) {
 
 }
 

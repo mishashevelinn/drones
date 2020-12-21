@@ -16,6 +16,13 @@ public:
 
 
     DroneList();
+    DroneList(const DroneList & other);
+    DroneList & operator=(const DroneList & rhs)
+    {
+        this->head = rhs.head;
+        this->tail = rhs.tail;
+        return *this;
+    }
 
 
     void insert(Drone new_data);
@@ -30,8 +37,6 @@ public:
         while ((temp = temp->get_prev()) != rhs.head)
         {
             os << temp->get_data() << endl;
-
-
         }
         return os;
     }

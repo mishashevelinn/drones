@@ -11,11 +11,13 @@ using namespace std;
 
 class Vector {
 public:
+    Vector(const Vector &other);
     Vector(double x, double y);
 
     Vector();
 
-    Vector(const Vector &other);
+    virtual ~Vector();
+
 
     Vector &operator=(const Vector &rhs) {
         x = rhs.x;

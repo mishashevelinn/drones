@@ -3,11 +3,12 @@
 //
 
 #include "Node.h"
-
+/*A Basic Node as Part of DroneList*/
 Node::Node() {
         next = NULL;
         prev = NULL;
 }
+
 
 Node *Node::get_next() {
         return next;
@@ -19,6 +20,10 @@ Node *Node::get_prev() {
 
 Drone &Node::get_data() {
         return data;
+}
+
+Node::~Node() {
+
 }
 
 

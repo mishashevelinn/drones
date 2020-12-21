@@ -18,11 +18,21 @@ using namespace std;
 
 class Parser {
 public:
+    Parser( const Parser & other);
+    Parser & operator =(const Parser & rhs){
+        this->aim = rhs.aim;
+        this->drones_file_name = rhs.drones_file_name;
+        this->init_file_name = rhs.init_file_name;
+return *this;
+    }
     Parser(const char *init_file_name, const char *drones_file_name) : init_file_name(init_file_name),
-                                                                       drones_file_name(drones_file_name), aim() {}
+    drones_file_name(drones_file_name), aim() {}
 
     const char *init_file_name;
     const char *drones_file_name;
+
+    virtual ~Parser();
+
     Vector aim;
 
     int file_open(fstream &fs, const char *file) ;

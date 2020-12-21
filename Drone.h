@@ -27,10 +27,13 @@ public:
     }
 
 
-
+    Drone(const Drone &);
     int get_id() const;
     bool move(Vector & globalBest, Square (&squares)[42][72]);
     const Vector &get_place();
+
+    virtual ~Drone();
+    Drone & operator=(const Drone & rhs);
 
 
 private:

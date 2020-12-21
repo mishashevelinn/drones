@@ -3,7 +3,8 @@
 //
 
 #include "Vector.h"
-
+/*2D vector with standard vector operations:
+ * vector subtraction, edition, multiplication by scalar and norm - a length of vector*/
 Vector::Vector(double x, double y) : x(x), y(y) {}
 
 Vector::Vector() :x(0),y(0) {}
@@ -31,5 +32,9 @@ void Vector::set_y(double y) {
 
 double Vector::norm() const {
     return sqrt((get_x())*get_x() + get_y()*get_y());
+}
+
+Vector::~Vector() {
+
 }
 

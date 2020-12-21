@@ -3,7 +3,7 @@
 //
 
 #include "DroneList.h"
-
+/*A simple LinkedList to store the Drones*/
 DroneList::DroneList() {
     {
         head = new Node();
@@ -39,3 +39,8 @@ DroneList::~DroneList() {
         }
     }
 }
+
+DroneList::DroneList(const DroneList & other) {
+    *this = other;
+}
+

@@ -12,8 +12,23 @@ using namespace std;
 
 class Node {
 public:
+    Node(const Node & other)
+    {
+        this->data = other.data;
+        this->next = other.next;
+        this->prev = other.prev;
+    }
+    Node & operator=(const Node & rhs)
+    {
+        this->data = rhs.data;
+        this->prev = rhs.prev;
+        this->next = rhs.next;
 
+        return *this;
+    }
     Node();
+
+    virtual ~Node();
 
     Node * next;
     Node * prev;

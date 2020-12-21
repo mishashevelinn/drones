@@ -3,7 +3,14 @@
 //
 
 #include "Parser.h"
+/*A class handles IO
+ * fields - file names and destination vector*/
 
+
+/*Opens a file for reading.
+ * fstream object is passed by reference and
+ * initialized in function body.
+ * return value - number of lines red*/
 int Parser:: file_open(fstream &fs, const char *file) {
         fs.open(file);
         string line;
@@ -12,14 +19,19 @@ int Parser:: file_open(fstream &fs, const char *file) {
         }
         string buff;
         int counter = 0;
+        //count lines
         while (getline(fs, buff)) {
             counter++;
         }
+        //return to the beginning of file
         fs.clear();
         fs.seekg(0);
         return counter;
 }
 
+
+/*returns a maximal number of iterations
+ */
 int Parser::parse_IterationsLimit(fstream &init_data) {
 
         string iter_num;
@@ -27,6 +39,12 @@ int Parser::parse_IterationsLimit(fstream &init_data) {
         stringstream ss(iter_num);
         string temp;
         int counter = 0;
+        /*reading a line and
+         * counting number of words.
+         * if it's 1 and number is legal
+         * positive integer (is_float
+         * with flag true, checks it)
+         * converts an input to a int*/
         while (ss >> temp) counter++;
         if (counter != 1) return -1;
         if (!is_float(temp,true)) return -1;
@@ -39,6 +57,10 @@ int Parser::parse_IterationsLimit(fstream &init_data) {
 
 }
 
+
+/*Checks if a string is legal float number
+ * If flag 'iter' is true, checks if a string
+ * is a positive integer -- used for maximal number of iterations parsing*/
 bool Parser::is_float(const string &str, bool iter) {
 
         bool dec_point = false;
@@ -56,6 +78,12 @@ bool Parser::is_float(const string &str, bool iter) {
 
 }
 
+
+
+/*Gets an int reference and updates it
+ * to be the iteration limit, red from file.
+ * calls to parse aim for destination vector parsing
+ * and to parse_IterationsLimit for maximal number of iterations parsing*/
 bool Parser::parse_init(int &iteration_limit) {
 
         string line;
@@ -76,6 +104,11 @@ bool Parser::parse_init(int &iteration_limit) {
 
 }
 
+/*reads files of initial drones locations
+ * checks if coordinates are legal with
+ * is_legal_float
+ * initializes Drone instances with coordinates
+ * and adds them to a List.*/
 bool Parser::parse_drones(DroneList &dl) {
     {
         fstream aim;
@@ -122,6 +155,11 @@ bool Parser::parse_drones(DroneList &dl) {
     }
 }
 
+
+
+/*Function detects if drone's initial position data
+ * is valid -- legal nubers, 4 numbers in a row,
+ * delimited by space*/
 bool Parser::legal_drone_data(const string &line) {
     {
         int counter = 0;
@@ -145,6 +183,10 @@ bool Parser::legal_drone_data(const string &line) {
     }
 }
 
+
+
+/*Checks if destanation vector is legal --
+ and initializes a data member*/
 Vector Parser::parse_aim(fstream &init_data) {
     {
             string line;
@@ -168,5 +210,15 @@ Vector Parser::parse_aim(fstream &init_data) {
             return Vector(x, y);
 
     }
+}
+
+Parser::Parser(const Parser & other) {
+    this->aim = other.aim;
+    this->drones_file_name = other.drones_file_name;
+    this->init_file_name = other.init_file_name;
+}
+
+Parser::~Parser() {
+
 }
 
