@@ -3,6 +3,7 @@
 //
 
 #include "Parser.h"
+#include "BST.h"
 /*A class handles IO
  * fields - file names and destination vector*/
 
@@ -109,7 +110,7 @@ bool Parser::parse_init(int &iteration_limit) {
  * is_legal_float
  * initializes Drone instances with coordinates
  * and adds them to a List.*/
-bool Parser::parse_drones(DroneList &dl) {
+bool Parser::parse_drones(Tree<Drone> &dl) {
     {
         fstream aim;
         file_open(aim, init_file_name);
@@ -147,7 +148,7 @@ bool Parser::parse_drones(DroneList &dl) {
             Vector place(place_x, place_y);
             Vector speed(speed_x, speed_y);
             Drone drone(place, speed, this->aim);
-            dl.insert(drone);
+            dl.insert(&drone);
         }
 
         return true;

@@ -5,8 +5,9 @@
 #ifndef DRONES_WOOD_H
 #define DRONES_WOOD_H
 
-#include "DroneList.h"
+#include "BST.h"
 #include "Square.h"
+#include "Drone.h"
 #include <iostream>
 using namespace std;
 class Wood {
@@ -36,28 +37,13 @@ return *this;   }
 
 
     friend ostream &operator<<(ostream &os,const  Wood &w) {
-
-            for (int i = 0; i < 42; ++i) {
-                for (int j = 0; j < 72; ++j) {
-                    if(w.field[i][j].get_counter() == 0)
-                        continue;
-                    os << "(" << i << " ," << j << "):" << endl;
-                    Node * temp = w.drones.head;
-                    while((temp=temp->get_next()) != NULL)
-                    {
-                        if(temp->get_data().get_place().floored().get_x() == i && temp->get_data().get_place().floored().get_y() == j) {
-                            os << "drone No.:" << temp->get_data().get_id() << ", ";
-                        }
-                    }
-                    os << endl;
-                    os<< "total drones in sqare : " << w.field[i][j].get_counter() << endl;
-                }
-            }
-        return os;
+        os << w.drones;
     }
+
+
     int get_iter_max(){return iter_max;}
-    const DroneList & get_drones() const  {return drones;}
-    void set_drones(DroneList & other) { drones = other;}
+    const Tree<Drone> & get_drones() const  {return drones;}
+    void set_drones(Tree<Drone> & other) { drones = other;}
      Vector & get_global_best() {return globalBest;}
     const Vector & get_aim() const {return aim;}
     void set_global_best(const Vector & other){ globalBest = other;}
@@ -66,7 +52,7 @@ return *this;   }
 
 private:
 
-    DroneList drones;
+    Tree<Drone> drones;
     int iter_max;
     Vector aim;
     Vector globalBest;

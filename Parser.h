@@ -4,7 +4,7 @@
 #define INV_INPUT "Error; invalid input"
 #ifndef DRONES_PARSER_H
 #define DRONES_PARSER_H
-
+#include "BST.h"
 #include <ostream>
 #include <ostream>
 #include <fstream>
@@ -47,7 +47,7 @@ return *this;
 
     bool parse_init(int &iteration_limit);
 
-    bool parse_drones(DroneList & dl);
+    bool parse_drones(Tree<Drone> & dl);
 
 
     bool legal_drone_data(const string & line);

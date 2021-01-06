@@ -13,7 +13,7 @@ int main(int argc, char* args[]) {
     }
     /*setting seed for rand() to be current time*/
     srand(time(NULL));
-    DroneList dl;
+    Tree<Drone> dl;
     Parser p(args[1], args[2]);
 
     /*parsing simulation settings*/
