@@ -28,7 +28,7 @@ public:
     }
     Node();
 
-    virtual ~Node();
+    virtual ~Node(){};
 
     Node * next;
     Node * prev;

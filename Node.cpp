@@ -22,9 +22,7 @@ Drone &Node::get_data() {
         return data;
 }
 
-Node::~Node() {
 
-}
 
 
 

@@ -19,7 +19,7 @@ public:
     BstNode(T* pd)
             :left(0),right(0)
     {pData = new T; *pData = *pd;}
-    ~BstNode(){delete left; delete right; delete pData;}
+    ~BstNode(){delete pData;}
     BstNode<T>* getLeft(){return left;}
     BstNode<T>* getRight(){return right;}
 
@@ -28,12 +28,12 @@ public:
     void setLeft(BstNode<T>* l){left=l;}
     void setRight(BstNode<T>* r){right=r;}
 
-    void setData(const T& d){*pData = d;}
-    BstNode<T>* Find(const T& d) {
+    void setData(const T* d){*pData = d;}
+    BstNode<T>* Find(const T* d) {
         {
-            if(d == *pData)
+            if(*d == *pData)
                 return this;
-            else if(d > *pData)
+            else if(*d > *pData)
                 return right ? right->Find(d) : 0;
             else
                 return left ? left->Find(d) : 0;
@@ -64,10 +64,45 @@ public:
         if(node == NULL)
             return;
         Inorder(node->left, os);
-        os << *node->getData();
+        os << *node->getData() << " ";
         Inorder(node->right, os);
     }
 
+    BstNode<T> * min(){
+        return left ? left->min() : this;
+    }
+
+    BstNode<T> * max(){
+        return right ? right->max() : this;
+    }
+
+    BstNode<T>* Remove(T* target){
+        if(left && *target < *pData)
+            left = left->Remove(target);
+        else if(right && *target > *pData)
+            right = right->Remove(target);
+
+        else {
+            if (!left) {
+                BstNode<T> *temp = right;
+                delete this;
+                return temp;
+            } else if (!right) {
+                BstNode<T> *temp = left;
+                delete this;
+                return temp;
+            } else {
+                BstNode<T> *successor = right->min();
+
+                delete pData;
+                pData = successor->pData;
+                right = right->Remove(target);
+
+            }
+        }
+        return this;
+
+    }
 
 
 
@@ -85,9 +120,28 @@ public:
     void insert( T* data){
         if(root == 0)
             root = new BstNode<T>(data);
-
         root->Insert(data);
 
+    }
+    T* Find(const T* target){
+        BstNode<T> * retval = root->Find(target);
+        return retval ? retval->getData() : 0;
+    }
+
+    T* min(){
+        return root->min()->getData();
+    }
+    T* max()
+    {
+        return root->max()->getData();
+    }
+
+    void remove(T* target){
+        if(Find(target) == 0) {
+            cout << "No such element" << endl;
+            return;
+        }
+        root = root->Remove(target);
     }
 
     friend ostream & operator<<(ostream& os, const Tree & rhs)

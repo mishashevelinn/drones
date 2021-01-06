@@ -35,7 +35,7 @@ DroneList::~DroneList() {
         {
             Node * del = temp;
             temp = temp->get_next();
-            delete(del);
+            delete del;
         }
     }
 }
