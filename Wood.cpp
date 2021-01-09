@@ -8,39 +8,50 @@
 /*Wood keeps 2D array of squares
  * init -- calculates initial values of squares counters and
  * defined global best.*/
-Wood::Wood(int iter, const Vector & aim):drones(), iter_max(iter), aim(aim), globalBest(){
-    for (int i = 0; i < 42; ++i) {
-        for (int j = 0; j < 72; ++j) {
-            field[i][j].get_id().set_x(i);
-            field[i][j].get_id().set_y(j);
+Wood::Wood(int iter, const Vector &aim, int x_min, int x_max, int y_min, int y_max):
+drones(), iter_max(iter), aim(aim), globalBest(), x_min(x_min), x_max(x_max), y_min(y_min), y_max(y_max){
+    field = new Square*[(x_max - x_min) * (y_max - y_min)];
+    for (int i = 0; i < y_max - y_min; ++i) {
+        field[i] = new Square[(x_max - x_min)];
+        for (int j = 0; j < x_max - x_min; ++j) {
+            field[i][j].setVector(Vector(i+x_min, j+y_min));
         }
-
     }
 }
 
 void Wood::init() {
-    for (int i = 0; i < 42; ++i) {
-        for (int j = 0; j < 72; ++j) {
-            Node * temp = drones.head;
-            while((temp=temp->get_next()) != NULL)
-            {
-                if(temp->get_data().get_place().floored().get_x() == i && temp->get_data().get_place().floored().get_y() == j) {
-                    field[i][j]++;
-                }
-
+    for (int i = 0; i < y_max - x_min ; i++) {
+        for (int j = 0; j < x_max - y_min  ; j++) {
+                Recognize find(i + x_min, j + y_min);
+                int temp = 0;
+                drones->iterate(find, drones->root, temp);
+                field[i][j].set_counter(temp);
             }
         }
-    }
-    globalBest = drones.head->get_next()->get_next()->get_data().get_place();
-
-
+    find_best(drones->root);
+}
+void Wood::find_best(BstNode<Drone> * node)
+{
+    if(node == 0)
+        return;
+    find_best(node->getLeft());
+    if((node->getData()->get_place() - aim).norm() < (globalBest - aim).norm())
+    globalBest = node->getData()->get_place();
+    find_best(node->getRight());
 }
 
-Wood::~Wood() {
 
+
+Wood::~Wood(){
+    delete drones;
+    for (int i = 0; i < y_max; ++i) {
+        delete [] field[i];
+    }
+    delete[] field;
 }
 
 Wood::Wood(const Wood &other) {
-
 }
+
+
 

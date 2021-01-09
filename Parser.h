@@ -12,12 +12,16 @@
 #include <sstream>
 #include <string>
 #include <cstdlib>
-#include "DroneList.h"
+#include "BST.h"
+#include "Vector.h"
+#include "Drone.h"
+
 using namespace std;
 
 
 class Parser {
 public:
+    int x_min, y_min, x_max, y_max;
     Parser( const Parser & other);
     Parser & operator =(const Parser & rhs){
         this->aim = rhs.aim;
@@ -30,6 +34,7 @@ return *this;
 
     const char *init_file_name;
     const char *drones_file_name;
+
 
     virtual ~Parser();
 
@@ -47,11 +52,12 @@ return *this;
 
     bool parse_init(int &iteration_limit);
 
-    bool parse_drones(Tree<Drone> & dl);
+    bool parse_drones(Tree<Drone> * dl);
 
 
     bool legal_drone_data(const string & line);
 
+    bool parse_limits(fstream &fs);
 };
 
 

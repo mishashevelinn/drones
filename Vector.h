@@ -37,7 +37,7 @@ public:
     {
         return  Vector(scalar*x, scalar*y);
     }
-    Vector  operator+(Vector & rhs) const
+    Vector operator+(const Vector & rhs) const
     {
         return Vector(x+rhs.x, y + rhs.y);
 

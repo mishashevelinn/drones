@@ -14,6 +14,7 @@ Vector::Vector(const Vector &other) {
     this->y= other.y;
 }
 Vector Vector::floored() const {
+
         return Vector(floor(x), floor(y));
 }
 double Vector::get_x() const {
@@ -28,7 +29,6 @@ void Vector::set_x(double x) {
 void Vector::set_y(double y) {
     this->y = y;
 }
-
 
 double Vector::norm() const {
     return sqrt((get_x())*get_x() + get_y()*get_y());

@@ -11,8 +11,9 @@
 using namespace std;
 class Drone {
 public:
-    Drone(const Vector & place, const Vector & speed, const Vector & dest);
-    Drone():place(-99, -99), speed(-99, -99){}
+    int x_max, y_max, x_min, y_min;
+    Drone(const Vector & place, const Vector & speed, const Vector & dest, int x_max, int y_max, int x_min, int y_min);
+    Drone():place(-99, -99), speed(-99, -99), a(0.25), b(1), c(1), type('D'), id(++serial){}
 
     friend  ostream & operator <<(ostream & os, const Drone & d)
     {
@@ -21,7 +22,7 @@ public:
         x /= 1;
         y /= 1;
 
-        os << Vector(x/100, y/100);
+        os << d.type << " " << Vector(x/100, y/100);
         return os;
 
     }
@@ -29,15 +30,30 @@ public:
 
     Drone(const Drone &);
     int get_id() const;
-    bool move(Vector & globalBest, Square (&squares)[42][72]);
+    bool move(Vector & globalBest, Square **);
     const Vector &get_place();
 
     virtual ~Drone();
     Drone & operator=(const Drone & rhs);
 
+    bool operator<(const Drone &rhs) const;
+
+    bool operator>(const Drone &rhs) const;
+
+    bool operator<=(const Drone &rhs) const;
+
+    bool operator>=(const Drone &rhs) const;
+
+    bool operator==(const Drone &rhs) const;
+
+    bool operator!=(const Drone &rhs) const;
+    float a, b, c;
+    char type;
+
 
 private:
-    int id;
+    static int serial;
+     int id;
 
     Vector place;
     Vector speed;
@@ -48,5 +64,6 @@ private:
 
 
 };
+
 
 #endif //DRONES_DRONE_H

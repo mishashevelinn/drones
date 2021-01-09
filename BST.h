@@ -69,7 +69,7 @@ public:
         if(node == NULL)
             return;
         Inorder(node->left, os);
-        os << *node->getData() << " ";
+        os << *node->getData() <<endl;
         Inorder(node->right, os);
     }
 
@@ -115,7 +115,7 @@ public:
 
 template <class T>
 class Tree{
-private:
+public:
     BstNode<T> * root;
     int size;
 public:
@@ -136,6 +136,7 @@ public:
         if(root == 0) {
             root = new BstNode<T>(data);
             size++;
+            return;
         }
         if(!search(data))
             size++;
@@ -173,15 +174,23 @@ public:
         return size;
     }
 
-    template<class Iterator>
-            void invoke(Iterator & it, BstNode<T>* node){
+    template<class Action>
+
+            void iterate(Action & make, BstNode<T>* node, int & flag){
         if(node == 0)
             return;
-        invoke(it, node->getLeft());
-        it(node);
-        invoke(it, node->getRight());
+        iterate(make, node->getLeft(), flag);
+        if(make(node->getData())) flag++;
+        iterate(make, node->getRight(), flag);
     }
 
+};
+class Iterator{
+public:
+    void operator()(int & x)
+    {
+        x++;
+    }
 };
 
 

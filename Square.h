@@ -19,7 +19,7 @@ public:
 
     friend ostream & operator<<(ostream & os, const Square & rhs)
     {
-        os <<"Square n " << rhs.id << " contains " << rhs.counter << " drones.";
+        os << rhs.id << ":" << rhs.counter << "|";
         return os;
     }
 
@@ -48,6 +48,10 @@ public:
 
     int get_counter() const;
     Vector get_id() const;
+
+    void set_counter(int i);
+
+    void setVector(const Vector & v);
 
 private:
     Vector id;
