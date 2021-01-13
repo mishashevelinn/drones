@@ -35,8 +35,9 @@ void Wood::find_best(BstNode<Drone> * node)
     if(node == 0)
         return;
     find_best(node->getLeft());
-    if((node->getData()->get_place() - aim).norm() < (globalBest - aim).norm())
-    globalBest = node->getData()->get_place();
+    if((node->getData()->get_place() - aim).norm() < (globalBest - aim).norm()) {
+        globalBest = node->getData()->get_place();
+    }
     find_best(node->getRight());
 }
 
